@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikelfinder</title>
+    <style>
+        /* CSS stilleri */
+        body {
+		font-family: Arial, 
+		sans-serif; 
+		background-color: #f2f2f2; 
+		margin: 0; 
+		padding: 0;
+		}
+        .container {
+		max-width: 800px; 
+		margin: 0 auto; 
+		padding: 20px; 
+		background-color: #fff; 
+		border: 1px solid #ccc; 
+		box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+		}
+		
+        h1, h2 {
+		color: #333; 
+		text-align: center;
+		}
+        ul {
+		list-style-type: disc; 
+		margin: 0; 
+		padding: 0 0 0 20px;
+		}
+        li {
+		margin-bottom: 10px;
+		}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Artikelfinder</h1>
+        <div id="daily-word"></div>
+    </div>
+    <script>
+        // JSON dosyasından günlük kelime ve artikel alma fonksiyonu
+        async function getDailyWord() {
+            const response = await fetch('words.json'); // JSON dosyasının yolu
+            const words = await response.json();
+            const randomWord = words[Math.floor(Math.random() * words.length)];
+            return randomWord;
+        }
+
+        // Sayfaya günlük kelime ve artikel ekleme
+        async function displayDailyWord() {
+            const word1 = await getDailyWord();
+            document.getElementById('daily-word').innerHTML = `<h2>${word1.word}</h2><p>${word1.article}</p>`;
+        }
+
+        displayDailyWord();
+    </script>
+</body>
+</html>
