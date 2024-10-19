@@ -147,7 +147,7 @@
 				fetch('words.json')
 					.then(response => response.json())
 					.then(words => {
-						const filteredData = data.filter(item => item.word.toLowerCase().includes(query));
+						const filteredData = words.filter(item => item.word.toLowerCase().includes(query));
 						localStorage.setItem('searchResults', JSON.stringify(filteredData));
 						window.location.href = 'arama.html';
 					})
