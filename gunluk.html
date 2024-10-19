@@ -88,7 +88,7 @@
         // Sayfaya günlük kelime ve artikel ekleme
         async function displayDailyWord() {
             const word = await loadDailyWord();
-			centeredText.textContent = `Aranan Sözcük: ${word.word}`;
+			centeredText.textContent = `Günlük Seçilen Sözcük: ${word.word}`;
 			articel.textContent = `Artikeli: ${word.article}`;
             //document.getElementById('daily-word').innerHTML = `<h2>${word.word}</h2><p>${word.article}</p>`;
         }
