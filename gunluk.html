@@ -39,6 +39,8 @@
 <body>
     <div class="container">
         <h1>Artikelfinder</h1>
+		<h1 id="centered-text"></h1>
+		<h2 id="articel"></h2>
         <div id="daily-word"></div>
     </div>
     <script>
@@ -79,6 +81,8 @@
         // Sayfaya günlük kelime ve artikel ekleme
         async function displayDailyWord() {
             const word = await loadDailyWord();
+			centeredText.textContent = `Aranan Sözcük: ${word.word}`;
+			articel.textContent = `Artikeli: ${word.article}`;
             document.getElementById('daily-word').innerHTML = `<h2>${word.word}</h2><p>${word.article}</p>`;
         }
 
