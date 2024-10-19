@@ -42,21 +42,48 @@
         <div id="daily-word"></div>
     </div>
     <script>
-        // JSON dosyasından günlük kelime ve artikel alma fonksiyonu
-        async function getDailyWord() {
-            const response = await fetch('words.json'); // JSON dosyasının yolu
+        // JSON dosyasından kelime ve artikel alma fonksiyonu
+        async function fetchWords() {
+            const response = await fetch('words.json');
             const words = await response.json();
+            return words;
+        }
+
+        // Günlük kelimeyi seç ve sakla
+        async function setDailyWord() {
+            const words = await fetchWords();
             const randomWord = words[Math.floor(Math.random() * words.length)];
+            const now = new Date();
+            const tomorrow = new Date();
+            tomorrow.setHours(24, 0, 0, 0); // Gün bitimine kadar olan süreyi hesapla
+
+            // Yeni kelimeyi ve yarınki zaman damgasını localStorage'a kaydet
+            localStorage.setItem('dailyWord', JSON.stringify(randomWord));
+            localStorage.setItem('nextUpdate', tomorrow.getTime());
+
             return randomWord;
+        }
+
+        // Günlük kelimeyi yükle
+        async function loadDailyWord() {
+            const nextUpdate = localStorage.getItem('nextUpdate');
+            const now = new Date().getTime();
+
+            if (!nextUpdate || now >= nextUpdate) {
+                return await setDailyWord();
+            } else {
+                return JSON.parse(localStorage.getItem('dailyWord'));
+            }
         }
 
         // Sayfaya günlük kelime ve artikel ekleme
         async function displayDailyWord() {
-            const word1 = await getDailyWord();
-            document.getElementById('daily-word').innerHTML = `<h2>${word1.word}</h2><p>${word1.article}</p>`;
+            const word = await loadDailyWord();
+            document.getElementById('daily-word').innerHTML = `<h2>${word.word}</h2><p>${word.article}</p>`;
         }
 
         displayDailyWord();
+    
     </script>
 </body>
 </html>
