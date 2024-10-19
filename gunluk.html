@@ -34,6 +34,11 @@
         li {
 		margin-bottom: 10px;
 		}
+		.countdown {
+		text-align: center; 
+		margin-top: 20px; 
+		font-size: 18px;
+		}
     </style>
 </head>
 <body>
@@ -41,7 +46,7 @@
         <h1>Artikelfinder</h1>
 		<h1 id="centered-text"></h1>
 		<h2 id="articel"></h2>
-        <div id="daily-word"></div>
+		<div id="countdown" class="countdown"></div>
     </div>
     <script>
 		const centeredText = document.getElementById('centered-text');
@@ -85,11 +90,28 @@
             const word = await loadDailyWord();
 			centeredText.textContent = `Aranan Sözcük: ${word.word}`;
 			articel.textContent = `Artikeli: ${word.article}`;
-            document.getElementById('daily-word').innerHTML = `<h2>${word.word}</h2><p>${word.article}</p>`;
+            //document.getElementById('daily-word').innerHTML = `<h2>${word.word}</h2><p>${word.article}</p>`;
+        }
+
+//geri sayım
+        function updateCountdown() {
+            const nextUpdate = localStorage.getItem('nextUpdate');
+            const now = new Date().getTime();
+            const distance = nextUpdate - now;
+
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('countdown').innerHTML = `Yeni kelimeye kalan süre: ${hours} saat, ${minutes} dakika, ${seconds} saniye`;
+
+            // 1 saniye sonra geri sayımı güncelle
+            setTimeout(updateCountdown, 1000);
         }
 
         displayDailyWord();
-    
+		updateCountdown();
+		
     </script>
 </body>
 </html>
