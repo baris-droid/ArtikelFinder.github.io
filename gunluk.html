@@ -44,6 +44,8 @@
         <div id="daily-word"></div>
     </div>
     <script>
+		const centeredText = document.getElementById('centered-text');
+		const articel = document.getElementById('articel');
         // JSON dosyasından kelime ve artikel alma fonksiyonu
         async function fetchWords() {
             const response = await fetch('words.json');
