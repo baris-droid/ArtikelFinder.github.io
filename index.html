@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ArtikelFinder</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f2f2f2;
+  }
+.menu {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Menü başlangıçta gizli */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 30px;
+    left: 0;
+}
+
+.menu-list.show {
+    display: block; /* Menü ikonu tıklanınca görünür */
+}
+
+.menu-list li {
+    padding: 10px 20px;
+}
+
+.menu-list li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.menu-list li:hover {
+    background-color: #f2f2f2;
+}
+  #searchForm {
+    width: 50%; /* Formun genişliğini ayarlayın */
+    display: flex; /* İçerikleri yatay olarak hizalayın */
+    justify-content: center; /* İçerikleri merkeze hizalayın */
+  }
+  .header {
+    font-size: 32px; /* Başlık boyutunu ayarlayın */
+    margin-bottom: 20px; /* Arama çubuğu ile arasındaki mesafeyi ayarlayın */
+    /* Diğer stil ayarlarınızı buraya ekleyebilirsiniz */
+  }
+  .logo {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+	border-radius: 50%;
+  }
+  .search-bar {
+    width: 40%;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+    .search-button {
+    padding: 10px 20px;
+    border-radius: 25px;
+    border: 2px solid #ddd;
+    background-color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  .search-button:hover {
+    background-color: #e8e8e8;
+  }
+  .search-bar:focus, .search-button:focus {
+    outline: none;
+    border-color: #aaa;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.2);
+  }
+</style>
+</head>
+<body>
+    <div class="menu">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <ul class="menu-list" id="menuList">
+            <li><a href="index.html">Anasayfa</a></li>
+            <li><a href="liste.html">Liste</a></li>
+            <li><a href="#rastgele">Rastgele</a></li>
+            <li><a href="#bolum4">Bölüm 4</a></li>
+            <li><a href="hakkımızda.html">Hakkımızda</a></li>
+        </ul>
+    </div>
+  <div class="header">ArtikelFinder</div>
+  <img src="logo.png" alt="Logo" class="logo">
+  <input type="text" class="search-bar" placeholder="Search..." autocomplete="off" id="searchInput" oninput="handleInput(event)" onkeypress="checkEnter(event)">
+  <button class="search-button" onclick="search()">Search</button>
+
+  <script>      
+    function toggleMenu() {
+        const menuList = document.getElementById('menuList');
+        menuList.classList.toggle('show');
+    }
+    function handleInput(event) {
+      const userInput = event.target.value;
+      // Implement the subtle animations and responsive design elements here
+      // For example, changing the background color of the search bar based on input
+      if(userInput.length > 0) {
+        document.body.style.backgroundColor = '#e8e8e8';
+      } else {
+        document.body.style.backgroundColor = '#f2f2f2';
+      }
+    }
+    /*const words = [
+        { "id": 1, "name": "Elma", "color": "Kırmızı" },
+        { "id": 2, "name": "Armut", "color": "Yeşil" },
+        { "id": 3, "name": "Muz", "color": "Sarı" },
+    ];*/
+	
+
+    function search() {     
+        const query = document.getElementById('searchInput').value.toLowerCase();
+		if(query.length === 0) {
+			alert('Lütfen aranacak kelimeyi yazın');
+		} else {
+				fetch('words.json')
+					.then(response => response.json())
+					.then(words => {
+						const filteredData = data.filter(item => item.word.toLowerCase().includes(query));
+						localStorage.setItem('searchResults', JSON.stringify(filteredData));
+						window.location.href = 'arama.html';
+					})
+					.catch(error => console.error('Error fetching data:', error));
+			/*const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
+			localStorage.setItem('searchResults', JSON.stringify(filteredData));
+			window.location.href = 'arama.html';  // Yeni sayfayı yenileyerek açar*/
+		}
+    }
+        
+	
+	
+    function checkEnter(event) {
+        if (event.key === "Enter") {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+			if(query.length === 0) {
+				alert('Lütfen aranacak kelimeyi yazın');
+			} else {
+				fetch('words.json')
+					.then(response => response.json())
+					.then(words => {
+						const filteredData = words.filter(item => item.word.toLowerCase().includes(query));
+						localStorage.setItem('searchResults', JSON.stringify(filteredData));
+						window.location.href = 'arama.html';
+					})
+					.catch(error => console.error('Error fetching data:', error));
+					/*
+				const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
+				localStorage.setItem('searchResults', JSON.stringify(filteredData));
+				window.location.href = 'arama.html';  // Yeni sayfayı yenileyerek */
+				//window.open('result.html', '_blank'); //Yeni sayfayı yeni sekmede açar
+			}
+        }
+    }
+	/*
+    function triggerSearch() {
+      const userInput = document.getElementById('searchInput').value;
+      window.location.href = `main2.html/${encodeURIComponent(userInput)}`;
+	  return false;
+    }*/
+  </script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArtikelFinder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+		
+		.row {
+			display: flex;
+			flex: 1;
+		}
+        .column {
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .side-column {
+            background-color: #ddd;
+            flex: 1;
+        }
+        .main-column {
+            background-color: #fff;
+            flex: 2;
+            margin: 0 10px;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+        }
+        .button-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #e8e8e8;
+            padding: 10px 0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .button-container .logo {
+            margin-right: 10px; /* Butonlarla logo arasındaki boşluk */
+			display: flex;
+			align-items: center;
+        }
+        .button-container .logo img {
+            height: 40px; /* Logonun yüksekliğini ayarlayabilirsiniz */
+            border-radius: 50%;
+			transition: height 0.3s ease;
+        }
+        .button-container .site-name {
+            font-size: 24px; /* Sitenin adı için yazı boyutu */
+            margin-right: 20px; /* Sitenin adı ve butonlar arasındaki boşluk */
+            font-weight: bold; /* Sitenin adını kalın yapar */
+			transition: font-size 0.3s ease;
+        }
+        .button-container button {
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 2px; /*butonlar arasındaki boşluk*/
+           
+        }
+        .button-container button:hover {
+            background-color: #f2f2f2;
+        }
+
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: #333;
+        margin: 4px 0;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+		}
+    
+		
+        h1#centered-text, h1, h2 {
+            font-size: 30px;
+            text-align: center;
+            margin-top: 60px;
+            color: #333;
+        }
+        h2#articel {
+            font-size: 26px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-wrapper {
+            display: flex;
+            justify-content: center; /* Butonun yatayda ortalanmasını sağlar */
+            width: 100%;
+        }
+        #backButton {
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+        #backButton:hover {
+            background-color: #f2f2f2;
+        }
+        ul {
+            list-style-type: disc;
+            margin: 0;
+            padding: 0 0 0 20px;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+		
+        @media (max-width: 600px) {
+		
+			.main-column {
+				flex: 9; /* Orta sütunun daha. geniş yer kaplamasını sağlar */
+			}
+     
+
+			.side-column {
+				flex: 1; /* Yan sütunların daha az yer kaplamasını sağlar */
+			}
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+			
+			.button-container .logo img {
+				height: 30px;
+			}
+			
+			.button-container .site-name {
+				font-size: 20px;
+			}
+			
+            .button-container .site-name, .button-container button {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+			.menu {
+				display: none;
+				flex-direction: column;
+			}
+
+			.menu-toggle {
+				display: flex;
+        
+			}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="column side-column">Sol Sütun</div>
+        <div class="column main-column">
+            <div class="button-container">
+				<div class="menu-toggle" onclick="toggleMenu()">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<a href="index.html" class="logo"><img src="logo.png" alt="Logo"></a>
+				<span class="site-name">ArtikelFinder</span>
+				<div class="menu">
+					<button onclick="goToPage('index.html')">Anasayfa</button>
+					<button onclick="goToPage('liste.html')">Liste</button>
+					<button>Rastgele</button>
+					<button>Buton</button>
+					<button onclick="goToPage('hakkımızda.html')">Hakkımızda</button>				
+				</div>
+            </div>
+			<h1 id="centered-text"></h1>
+			<h2 id="articel"></h2>
+            <div class="button-wrapper">
+                <button id="backButton" onclick="goBack()">Geri Dön</button>
+            </div>
+            <h1>Orta Kısım</h1>
+            <p>Burada çeşitli içerikler olacak.</p>
+			<div class="result" id="result"></div>
+        </div>
+        <div class="column side-column">Sağ Sütun</div>
+    </div>
+
+    <script>
+		function toggleMenu() {
+			var menu = document.querySelector('.menu');
+			menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+		}
+
+        function goToPage(pageUrl) {
+            window.location.href = pageUrl;
+        }
+		
+		function goBack() {
+			window.location.href = 'index.html';
+		}
+			
+        window.onload = function() {
+            const results = JSON.parse(localStorage.getItem('searchResults')) || [];
+            const resultDiv = document.getElementById('result');
+			const centeredText = document.getElementById('centered-text');
+			const articel = document.getElementById('articel');
+			const selectedWord = JSON.parse(localStorage.getItem('selectedWord'));
+            
+            if (results.length === 0 && !selectedWord) {
+                // Önceden arama yapılmadıysa anasayfaya yönlendir
+               window.location.href = 'index.html';
+            } else {
+                // Önceki aramaları temizle
+				localStorage.removeItem('selectedWord');
+                localStorage.removeItem('searchResults');
+				centeredText.textContent = `Aranan Sözcük: ${results.map(item => item.word).join(', ')}`;
+				articel.textContent = `Artikeli: ${results.map(item => item.article).join(', ')}`;
+            }
+
+            // Arama sonuçlarını ekrana yazdır
+            results.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.textContent = `${item.word} - ${item.article}`;
+                resultDiv.appendChild(itemDiv);
+            });
+
+			if (selectedWord) {
+				centeredText.textContent = `Aranan Sözcük: ${selectedWord.word}`;
+				articel.textContent = `Artikeli: ${selectedWord.article}`;
+				localStorage.removeItem('selectedWord'); // Clean up localStorage
+			}
+
+            if (results.length === 0) {
+                resultDiv.textContent = 'Sonuç bulunamadı';
+            }
+        };
+    </script>
+</body>
+</html>

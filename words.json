@@ -1,0 +1,5 @@
+[
+    { "id": 1, "word": "Hund", "article": "der" },
+    { "id": 2, "word": "Katze", "article": "die" },
+    { "id": 3, "word": "Buch", "article": "das" }
+]
