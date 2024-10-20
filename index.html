@@ -140,25 +140,25 @@
     ];*/
 	
 	function search() {
-    let query = document.getElementById('search-bar').value.toLowerCase();
+		let query = document.getElementById('searchInput').value.toLowerCase();
 
-    fetch('search.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({word: query})
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message) {
-            document.getElementById('result').textContent = data.message;
-        } else {
-            document.getElementById('result').textContent = `Kelime: ${data.word}, Artikel: ${data.article}, Arama Sayısı: ${data.searchCount}`;
-        }
-    })
-    .catch(error => console.error('Hata:', error));
-}
+		fetch('search.php', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({word: query})
+		})
+		.then(response => response.json())
+		.then(data => {
+			if (data.message) {
+				document.getElementById('result').textContent = data.message;
+			} else {
+				document.getElementById('result').textContent = `Kelime: ${data.word}, Artikel: ${data.article}, Arama Sayısı: ${data.searchCount}`;
+			}
+		})
+		.catch(error => console.error('Hata:', error));
+	}
 
     /*
     function search() {     
