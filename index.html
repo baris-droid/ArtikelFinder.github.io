@@ -116,6 +116,7 @@
   <img src="logo.png" alt="Logo" class="logo">
   <input type="text" class="search-bar" placeholder="Search..." autocomplete="off" id="searchInput" oninput="handleInput(event)" onkeypress="checkEnter(event)">
   <button class="search-button" onclick="search()">Search</button>
+  <p id="result"></p>
 
   <script>      
     function toggleMenu() {
@@ -138,7 +139,28 @@
         { "id": 3, "name": "Muz", "color": "Sarı" },
     ];*/
 	
+	function searchWord() {
+    let query = document.getElementById('search-bar').value.toLowerCase();
 
+    fetch('search.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({word: query})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            document.getElementById('result').textContent = data.message;
+        } else {
+            document.getElementById('result').textContent = `Kelime: ${data.word}, Artikel: ${data.article}, Arama Sayısı: ${data.searchCount}`;
+        }
+    })
+    .catch(error => console.error('Hata:', error));
+}
+
+    /*
     function search() {     
         const query = document.getElementById('searchInput').value.toLowerCase();
 		if(query.length === 0) {
@@ -155,7 +177,7 @@
 			/*const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
 			localStorage.setItem('searchResults', JSON.stringify(filteredData));
 			window.location.href = 'arama.html';  // Yeni sayfayı yenileyerek açar*/
-		}
+		/*}
     }
         
 	
@@ -179,9 +201,9 @@
 				localStorage.setItem('searchResults', JSON.stringify(filteredData));
 				window.location.href = 'arama.html';  // Yeni sayfayı yenileyerek */
 				//window.open('result.html', '_blank'); //Yeni sayfayı yeni sekmede açar
-			}
-        }
-    }
+			//}
+        //}
+    //}
 	/*
     function triggerSearch() {
       const userInput = document.getElementById('searchInput').value;

@@ -1,5 +1,5 @@
 [
-    { "id": 1, "word": "Hund", "article": "der" },
-    { "id": 2, "word": "Katze", "article": "die" },
-    { "id": 3, "word": "Buch", "article": "das" }
+    { "id": 1, "word": "Hund", "article": "der", "searchCount": 0 },
+    { "id": 2, "word": "Katze", "article": "die", "searchCount": 0 },
+    { "id": 3, "word": "Buch", "article": "das", "searchCount": 0 }
 ]
