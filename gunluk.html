@@ -20,6 +20,7 @@
 		background-color: #fff; 
 		border: 1px solid #ccc; 
 		box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+        height: 100vh;
 		}
 		
         h1, h2 {
@@ -39,10 +40,135 @@
 		margin-top: 20px; 
 		font-size: 18px;
 		}
+		
+        .button-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #e8e8e8;
+            padding: 10px 0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .button-container .logo {
+            margin-right: 10px; /* Butonlarla logo arasındaki boşluk */
+			display: flex;
+			align-items: center;
+        }
+        .button-container .logo img {
+            height: 40px; /* Logonun yüksekliğini ayarlayabilirsiniz */
+            border-radius: 50%;
+			transition: height 0.3s ease;
+        }
+        .button-container .site-name {
+            font-size: 24px; /* Sitenin adı için yazı boyutu */
+            margin-right: 20px; /* Sitenin adı ve butonlar arasındaki boşluk */
+            font-weight: bold; /* Sitenin adını kalın yapar */
+			transition: font-size 0.3s ease;
+        }
+        .button-container button {
+            background-color: #ffffff;
+            border: 2px solid #ddd;
+            border-radius: 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 2px; /*butonlar arasındaki boşluk*/
+           
+        }
+        .button-container button:hover {
+            background-color: #f2f2f2;
+        }
+
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background: #333;
+        margin: 4px 0;
+    }
+
+    .menu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+		}
+    
+		
+        h1#centered-text, h1, h2 {
+            font-size: 30px;
+            text-align: center;
+            margin-top: 60px;
+            color: #333;
+        }
+        h2#articel {
+            font-size: 26px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .button-wrapper {
+            display: flex;
+            justify-content: center; /* Butonun yatayda ortalanmasını sağlar */
+            width: 100%;
+        }
+		
+        @media (max-width: 600px) {
+		
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+			
+			.button-container .logo img {
+				height: 30px;
+			}
+			
+			.button-container .site-name {
+				font-size: 20px;
+			}
+			
+            .button-container .site-name, .button-container button {
+                margin: 5px 0;
+                width: 100%;
+                text-align: center;
+            }
+
+			.menu {
+				display: none;
+				flex-direction: column;
+			}
+
+			.menu-toggle {
+				display: flex;
+        
+			}
+
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="button-container">
+			<div class="menu-toggle" onclick="toggleMenu()">
+				<span></span>
+				<span></span>
+				<span></span>
+			</div>
+			<a href="index.html" class="logo"><img src="logo.png" alt="Logo"></a>
+			<span class="site-name">ArtikelFinder</span>
+			<div class="menu">
+				<button onclick="goToPage('index.html')">Anasayfa</button>
+				<button onclick="goToPage('liste.html')">Liste</button>
+				<button onclick="goToPage('günlük.html')">Günlük</button>
+				<button>Buton</button>
+				<button onclick="goToPage('hakkımızda.html')">Hakkımızda</button>				
+			</div>
+        </div>
         <h1>Artikelfinder</h1>
 		<h1 id="centered-text"></h1>
 		<h2 id="articel"></h2>
@@ -51,6 +177,16 @@
     <script>
 		const centeredText = document.getElementById('centered-text');
 		const articel = document.getElementById('articel');
+		
+		function toggleMenu() {
+			var menu = document.querySelector('.menu');
+			menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+		}
+		
+        function goToPage(pageUrl) {
+            window.location.href = pageUrl;
+        }
+		
         // JSON dosyasından kelime ve artikel alma fonksiyonu
         async function fetchWords() {
             const response = await fetch('words.json');
@@ -88,7 +224,7 @@
         // Sayfaya günlük kelime ve artikel ekleme
         async function displayDailyWord() {
             const word = await loadDailyWord();
-			centeredText.textContent = `Günlük Seçilen Sözcük: ${word.word}`;
+			centeredText.textContent = `Günün Seçilen Sözcük: ${word.word}`;
 			articel.textContent = `Artikeli: ${word.article}`;
             //document.getElementById('daily-word').innerHTML = `<h2>${word.word}</h2><p>${word.article}</p>`;
         }
