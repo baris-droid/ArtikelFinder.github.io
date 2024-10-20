@@ -139,28 +139,9 @@
         { "id": 3, "name": "Muz", "color": "Sarı" },
     ];*/
 	
-	function search() {
-		let query = document.getElementById('searchInput').value.toLowerCase();
 
-		fetch('https://baris-droid.github.io/ArtikelFinder.github.io/search.php', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({word: query})
-		})
-		.then(response => response.json())
-		.then(data => {
-			if (data.message) {
-				document.getElementById('result').textContent = data.message;
-			} else {
-				document.getElementById('result').textContent = `Kelime: ${data.word}, Artikel: ${data.article}, Arama Sayısı: ${data.searchCount}`;
-			}
-		})
-		.catch(error => console.error('Hata:', error));
-	}
 
-    /*
+    
     function search() {     
         const query = document.getElementById('searchInput').value.toLowerCase();
 		if(query.length === 0) {
@@ -177,7 +158,7 @@
 			/*const filteredData = data.filter(item => item.name.toLowerCase().includes(query));
 			localStorage.setItem('searchResults', JSON.stringify(filteredData));
 			window.location.href = 'arama.html';  // Yeni sayfayı yenileyerek açar*/
-		/*}
+		}
     }
         
 	
@@ -201,9 +182,9 @@
 				localStorage.setItem('searchResults', JSON.stringify(filteredData));
 				window.location.href = 'arama.html';  // Yeni sayfayı yenileyerek */
 				//window.open('result.html', '_blank'); //Yeni sayfayı yeni sekmede açar
-			//}
-        //}
-    //}
+			}
+        }
+    }
 	/*
     function triggerSearch() {
       const userInput = document.getElementById('searchInput').value;
